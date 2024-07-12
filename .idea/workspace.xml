@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4c3507fb-d6a3-4f5b-9f9c-7f72fbbc0e83" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/commons_lang3_3_12_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_j_8_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/opencsv_5_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/postgresql_42_7_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bibliotecas/commons-lang3-3.12.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bibliotecas/mysql-connector-j-8.4.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bibliotecas/opencsv-5.5.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bibliotecas/postgresql-42.7.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/registros.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ProgramaAbrigo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ProgramaCentro.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ProgramaPrincipal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dados/AbrigoDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dados/CentroDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dados/Conexoes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/entidade/Abrigo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/entidade/CentroDistribuicao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/entidade/EstoqueAbrigo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/entidade/EstoqueCentro.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/estoqueCSV/EstoqueAbrigoCSVImporter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/estoqueCSV/EstoqueCentroCSVImporter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/estoqueCSV/Pedido.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/exception/CEPException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/exception/DadoObrigatorioException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/exception/TelefoneException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/logicaCadastro/Cadastro.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/logicaCadastro/logicaAbrigo/LogicaAbrigo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/logicaCadastro/logicaAbrigo/MemoriaAbrigo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/logicaCadastro/logicaAbrigo/ValidarAbrigo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/logicaCadastro/logicaCentro/LogicaCentro.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/logicaCadastro/logicaCentro/MemoriaCentro.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/logicaCadastro/logicaCentro/ValidarCentroDistribuicao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/produtos/TamanhoRoupa.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/produtos/TipoAlimento.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/produtos/TipoHigiene.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/produtos/TipoProduto.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2ijWzUuUzKjkPqLvClyqovjmY0A" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.EstoqueAbrigoCSVImporter.executor": "Run",
+    "Application.EstoqueCentroCSVImporter.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.Pedido.executor": "Run",
+    "Application.ProgramaAbrigo.executor": "Run",
+    "Application.ProgramaCentro.executor": "Run",
+    "Application.ProgramaPrincipal.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/gustt/Documents/intellij/registros/bibliotecas",
+    "onboarding.tips.debug.path": "C:/Users/gustt/Documents/intellij/registros/src/Main.java",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\gustt\Documents\intellij\registros\bibliotecas" />
+      <recent name="C:\Users\gustt\Documents\intellij\registros\.idea" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.ProgramaPrincipal">
+    <configuration name="EstoqueCentroCSVImporter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="estoqueCSV.EstoqueCentroCSVImporter" />
+      <module name="registros" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="estoqueCSV.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Pedido" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="estoqueCSV.Pedido" />
+      <module name="registros" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="estoqueCSV.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProgramaAbrigo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ProgramaAbrigo" />
+      <module name="registros" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProgramaCentro" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ProgramaCentro" />
+      <module name="registros" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProgramaPrincipal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ProgramaPrincipal" />
+      <module name="registros" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ProgramaPrincipal" />
+        <item itemvalue="Application.Pedido" />
+        <item itemvalue="Application.ProgramaCentro" />
+        <item itemvalue="Application.ProgramaAbrigo" />
+        <item itemvalue="Application.EstoqueCentroCSVImporter" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4c3507fb-d6a3-4f5b-9f9c-7f72fbbc0e83" name="Changes" comment="" />
+      <created>1720004729183</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1720004729183</updated>
+    </task>
+    <servers />
+  </component>
+</project>

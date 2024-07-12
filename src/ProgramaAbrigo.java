@@ -1,0 +1,131 @@
+import dados.AbrigoDAO;
+
+import dados.Conexoes;
+import entidade.Abrigo;
+
+import entidade.EstoqueAbrigo;
+import logicaCadastro.logicaAbrigo.LogicaAbrigo;
+import produtos.TipoProduto;
+
+import java.sql.Connection;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.UUID;
+
+public class ProgramaAbrigo {
+    public static void main(String[] args) {
+        try (Connection conexao = Conexoes.conexao()) {
+            AbrigoDAO abrigoDAO = new AbrigoDAO(conexao);
+            LogicaAbrigo logicaAbrigo = new LogicaAbrigo(abrigoDAO);
+            Scanner scanner = new Scanner(System.in);
+
+            while (true) {
+                System.out.println("Menu:");
+                System.out.println("1. Cadastrar novo abrigo");
+                System.out.println("2. Listar todos os abrigos");
+                System.out.println("3. Atualizar abrigo");
+                System.out.println("4. Deletar abrigo");
+                System.out.println("5. Verificar estoque do abrigo");
+                System.out.println("6. Sair");
+                System.out.print("Escolha uma opção: ");
+                int opcao = scanner.nextInt();
+                scanner.nextLine();
+
+                if (opcao == 1) {
+                    System.out.print("Nome: ");
+                    String nome = scanner.nextLine();
+                    System.out.print("Endereço: ");
+                    String endereco = scanner.nextLine();
+                    System.out.print("Responsavel: ");
+                    String responsavel = scanner.nextLine();
+                    System.out.print("Telefone: ");
+                    String telefone = scanner.nextLine();
+                    System.out.print("Email: ");
+                    String email = scanner.nextLine();
+
+                    Abrigo abrigo = new Abrigo(nome, endereco, responsavel, telefone, email);
+                    try {
+                        logicaAbrigo.salvar(abrigo);
+                        System.out.println("Abrigo cadastrado com sucesso!");
+                    } catch (Exception e) {
+                        System.out.println("Erro ao cadastrar abrigo: " + e.getMessage());
+                    }
+                } else if (opcao == 2) {
+                    System.out.println("Listando todos os abrigos:");
+                    logicaAbrigo.imprimir();
+                } else if (opcao == 3) {
+                    System.out.print("Digite o código do abrigo a ser atualizado: ");
+                    String codigoStr = scanner.nextLine();
+                    UUID codigo = UUID.fromString(codigoStr);
+                    Abrigo abrigoExistente = logicaAbrigo.buscar(codigo);
+
+                    if (abrigoExistente != null) {
+                        System.out.println("Deixe em branco para manter o valor atual.");
+                        System.out.print("Nome (" + abrigoExistente.getNome() + "): ");
+                        String nome = scanner.nextLine();
+                        System.out.print("Endereço (" + abrigoExistente.getEndereco() + "): ");
+                        String endereco = scanner.nextLine();
+                        System.out.print("Responsavel (" + abrigoExistente.getResponsavel() + "): ");
+                        String responsavel = scanner.nextLine();
+                        System.out.print("Telefone (" + abrigoExistente.getTelefone() + "): ");
+                        String telefone = scanner.nextLine();
+                        System.out.print("Email (" + abrigoExistente.getEmail() + "): ");
+                        String email = scanner.nextLine();
+
+                        if (!nome.isEmpty()) abrigoExistente.setNome(nome);
+                        if (!endereco.isEmpty()) abrigoExistente.setEndereco(endereco);
+                        if (!responsavel.isEmpty()) abrigoExistente.setResponsavel(responsavel);
+                        if (!telefone.isEmpty()) abrigoExistente.setTelefone(telefone);
+                        if (!email.isEmpty()) abrigoExistente.setEmail(email);
+
+                        try {
+                            logicaAbrigo.atualizar(abrigoExistente);
+                            System.out.println("Abrigo atualizado com sucesso!");
+                        } catch (Exception e) {
+                            System.out.println("Erro ao atualizar abrigo: " + e.getMessage());
+                        }
+                    } else {
+                        System.out.println("Abrigo não encontrado!");
+                    }
+                } else if (opcao == 4) {
+                    System.out.print("Digite o código do abrigo a ser deletado: ");
+                    String codigoStr = scanner.nextLine();
+                    UUID codigo = UUID.fromString(codigoStr);
+
+                    try {
+                        logicaAbrigo.deletar(codigo);
+                        System.out.println("Abrigo deletado com sucesso!");
+                    } catch (Exception e) {
+                        System.out.println("Erro ao deletar abrigo: " + e.getMessage());
+                    }
+                } else if (opcao == 5) {
+                    System.out.print("Digite o código do abrigo para listar o estoque: ");
+                    String codigoAbrigo = scanner.nextLine();
+
+                    Map<String, Integer> estoqueAgrupado = abrigoDAO.listarEstoqueAgrupado(codigoAbrigo);
+
+                    if (estoqueAgrupado.isEmpty()) {
+                        System.out.println("Nenhum item encontrado no estoque deste abrigo.");
+                    } else {
+                        System.out.println("Estoque do abrigo " + codigoAbrigo + ":");
+                        for (Map.Entry<String, Integer> entry : estoqueAgrupado.entrySet()) {
+                            String key = entry.getKey();
+                            int quantidade = entry.getValue();
+
+                            System.out.println(key + " / Em estoque: " + quantidade);
+                        }
+                    }
+                } else if (opcao == 6) {
+                    System.out.println("Saindo...");
+                    break;
+                } else {
+                    System.out.println("Opção inválida!");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Erro na conexão com o banco de dados: " + e.getMessage());
+        }
+    }
+}
+

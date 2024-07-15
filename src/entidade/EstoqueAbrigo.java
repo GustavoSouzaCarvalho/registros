@@ -44,6 +44,28 @@ public class EstoqueAbrigo {
                 throw new IllegalArgumentException("Tipo de produto inválido");
         }
     }
+    public EstoqueAbrigo(String codigo, TipoProduto tipoProduto, Object especificacaoProduto, Integer quantidade) {
+        this.codigo = codigo;
+        this.id_estoqueAbrigo = UUID.randomUUID();
+        this.tipoProduto = tipoProduto;
+        this.quantidade = quantidade;
+
+        switch (tipoProduto) {
+            case HIGIENE:
+                this.tipoHigiene = (TipoHigiene) especificacaoProduto;
+                break;
+            case ALIMENTO:
+                this.tipoAlimento = (TipoAlimento) especificacaoProduto;
+                break;
+            case ROUPA:
+                this.tamanhoRoupa = (TamanhoRoupa) especificacaoProduto;
+                break;
+            default:
+                throw new IllegalArgumentException("Tipo de produto inválido");
+        }
+    }
+
+
 
     public String getCodigo() {
         return codigo;

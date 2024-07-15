@@ -9,19 +9,31 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
+
 public class Pedido {
     public static void processarPedidos(String csvFilePath) {
         List<EstoqueAbrigo> pedidos = EstoqueAbrigoCSVImporter.lerPedidosCSV(csvFilePath);
 
+        System.out.println("Total de pedidos lidos: " + pedidos.size());
+
         try (Connection conexao = Conexoes.conexao()) {
             for (EstoqueAbrigo pedido : pedidos) {
                 System.out.println("Processando pedido: " + pedido);
-                if (aprovarPedido(pedido)) {
+                boolean aprovado = aprovarPedido(pedido);
+                if (aprovado) {
                     System.out.println("Pedido aprovado: " + pedido);
-                    atualizarEstoque(pedido, conexao);
+                    try {
+                        atualizarEstoque(pedido, conexao);
+                    } catch (SQLException e) {
+                        System.out.println("Erro ao atualizar estoque: " + e.getMessage());
+                    }
                 } else {
                     System.out.println("Pedido rejeitado: " + pedido);
-                    registrarRejeicao(pedido, conexao);
+                    try {
+                        registrarRejeicao(pedido, conexao);
+                    } catch (SQLException e) {
+                        System.out.println("Erro ao registrar rejeição: " + e.getMessage());
+                    }
                 }
             }
         } catch (SQLException e) {
@@ -31,7 +43,7 @@ public class Pedido {
 
     private static boolean aprovarPedido(EstoqueAbrigo pedido) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Deseja aprovar o pedido? (s/n)");
+        System.out.println("Deseja aprovar o pedido? (s/n) " + pedido);
         String resposta = scanner.nextLine();
         return resposta.equalsIgnoreCase("s");
     }
@@ -44,20 +56,33 @@ public class Pedido {
                 stmt.setString(1, pedido.getTipoProduto().name());
                 stmt.setString(2, getProdutoName(pedido));
                 ResultSet rs = stmt.executeQuery();
+                boolean encontrouEstoque = false;
+
                 while (rs.next() && quantidadeRestante > 0) {
                     String centro = rs.getString("centro");
                     String idEstoqueCentro = rs.getString("id_estoqueCentro");
                     int quantidadeEstoque = rs.getInt("quantidade");
                     Date validade = rs.getDate("validade");
-                    if (quantidadeEstoque >= quantidadeRestante) {
-                        atualizarQuantidadeEstoqueCentro(conexao, idEstoqueCentro, quantidadeEstoque - quantidadeRestante);
-                        inserirEstoqueAbrigo(conexao, pedido, quantidadeRestante, validade);
-                        quantidadeRestante = 0;
-                    } else {
-                        atualizarQuantidadeEstoqueCentro(conexao, idEstoqueCentro, 0);
-                        inserirEstoqueAbrigo(conexao, pedido, quantidadeEstoque, validade);
-                        quantidadeRestante -= quantidadeEstoque;
+
+                    if (quantidadeEstoque > 0) {
+                        encontrouEstoque = true;
+                        System.out.println("Centro: " + centro + ", Estoque: " + quantidadeEstoque + ", Quantidade Restante: " + quantidadeRestante);
+
+                        if (quantidadeEstoque >= quantidadeRestante) {
+                            atualizarQuantidadeEstoqueCentro(conexao, idEstoqueCentro, quantidadeEstoque - quantidadeRestante);
+                            inserirEstoqueAbrigo(conexao, pedido, quantidadeRestante, validade);
+                            quantidadeRestante = 0;
+                        } else {
+                            atualizarQuantidadeEstoqueCentro(conexao, idEstoqueCentro, 0);
+                            inserirEstoqueAbrigo(conexao, pedido, quantidadeEstoque, validade);
+                            quantidadeRestante -= quantidadeEstoque;
+                        }
                     }
+                }
+
+                if (!encontrouEstoque) {
+                    System.out.println("Estoque insuficiente para completar o pedido: " + pedido);
+                    break;
                 }
             }
         }
@@ -95,7 +120,7 @@ public class Pedido {
 
     private static void registrarRejeicao(EstoqueAbrigo pedido, Connection conexao) throws SQLException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Por favor, insira o motivo da rejeição:");
+        System.out.println("Por favor, insira o motivo da rejeição para o pedido " + pedido + ":");
         String motivo = scanner.nextLine();
 
         Timestamp momento = new Timestamp(System.currentTimeMillis());
@@ -129,7 +154,7 @@ public class Pedido {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Escreva o caminho do pedido");
-        String csvFilePath =  sc.nextLine();    //C:/Users/gustt/Documents/pedido.csv
+        String csvFilePath = sc.nextLine(); //C:/Users/gustt/Documents/pedido.csv
         processarPedidos(csvFilePath);
     }
 }

@@ -4,6 +4,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import dados.Conexoes;
 import entidade.EstoqueAbrigo;
+import entidade.EstoqueCentro;
 import produtos.TamanhoRoupa;
 import produtos.TipoAlimento;
 import produtos.TipoHigiene;
@@ -12,10 +13,7 @@ import produtos.TipoProduto;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.Date;
 
 public class EstoqueAbrigoCSVImporter {
     private static final int LIMITE_OCORRENCIAS_TIPO_PRODUTO = 200;
@@ -41,9 +39,7 @@ public class EstoqueAbrigoCSVImporter {
 
     public static List<EstoqueAbrigo> lerPedidosCSV(String csvFilePath) {
         List<EstoqueAbrigo> pedidos = new ArrayList<>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try (CSVReader csvReader = new CSVReader(new FileReader(csvFilePath));
-             Connection conexao = Conexoes.conexao()) {
+        try (CSVReader csvReader = new CSVReader(new FileReader(csvFilePath))) {
 
             String[] values;
             csvReader.readNext(); // Ignorar cabeçalho
@@ -72,22 +68,16 @@ public class EstoqueAbrigoCSVImporter {
 
                 Integer quantidade = Integer.parseInt(values[3].trim());
 
-                Date validade = null;
-                if (values.length > 4 && !values[4].trim().isEmpty()) {
-                    try {
-                        validade = dateFormat.parse(values[4].trim());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
-                EstoqueAbrigo estoqueAbrigo = new EstoqueAbrigo(codigo, tipoProduto, especificacaoProduto, quantidade, validade);
+                EstoqueAbrigo estoqueAbrigo = new EstoqueAbrigo(codigo, tipoProduto, especificacaoProduto, quantidade);
                 pedidos.add(estoqueAbrigo);
+                System.out.println("Pedido lido: " + estoqueAbrigo); // Adicionado para depuração
             }
-        } catch (IOException | CsvValidationException | SQLException e) {
+        } catch (IOException | CsvValidationException e) {
             e.printStackTrace();
         }
         return pedidos;
     }
+
 
     public static void importarCSV(String csvFilePath) {
         List<EstoqueAbrigo> pedidos = lerPedidosCSV(csvFilePath);
@@ -168,6 +158,7 @@ public class EstoqueAbrigoCSVImporter {
             }
             stmt.setString(7, produto);
             stmt.setDate(8, estoqueAbrigo.getValidade() != null ? new java.sql.Date(estoqueAbrigo.getValidade().getTime()) : null);
+
             stmt.executeUpdate();
         }
     }

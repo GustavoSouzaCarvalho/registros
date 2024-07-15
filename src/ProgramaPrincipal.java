@@ -3,6 +3,8 @@ import dados.CentroDAO;
 import dados.Conexoes;
 import entidade.Abrigo;
 import entidade.CentroDistribuicao;
+import estoqueCSV.EstoqueAbrigoCSVImporter;
+import estoqueCSV.EstoqueCentroCSVImporter;
 import logicaCadastro.logicaAbrigo.LogicaAbrigo;
 import logicaCadastro.logicaCentro.LogicaCentro;
 import estoqueCSV.Pedido;
@@ -27,7 +29,8 @@ public class ProgramaPrincipal {
                 System.out.println("1. Ajustes Centro");
                 System.out.println("2. Ajustes Abrigo");
                 System.out.println("3. Receber Pedido");
-                System.out.println("4. Sair");
+                System.out.println("4. Alimentar estoque dos Abrigos");
+                System.out.println("5. Finalizar");
                 System.out.print("Escolha uma opção: ");
                 int opcao = scanner.nextInt();
                 scanner.nextLine(); // Limpar o buffer
@@ -39,6 +42,8 @@ public class ProgramaPrincipal {
                 } else if (opcao == 3) {
                     receberPedido(scanner);
                 } else if (opcao == 4) {
+                    alimentarEstoqueCentro(scanner);
+                } else if (opcao == 5) {
                     System.out.println("Saindo...");
                     break;
                 } else {
@@ -212,8 +217,17 @@ public class ProgramaPrincipal {
 
     private static void receberPedido(Scanner scanner) {
         System.out.println("Escreva o caminho do pedido:");
-        String csvFilePath = scanner.nextLine();
+        String csvFilePath = scanner.nextLine();    //C:/Users/gustt/Documents/pedido.csv
         Pedido.processarPedidos(csvFilePath);
     }
+
+    private static void alimentarEstoqueCentro(Scanner scanner) {
+        System.out.println("Escreva o caminho do arquivo CSV para alimentar o estoque dos centros:");
+        String csvFilePath = scanner.nextLine(); //C:/Users/gustt/Documents/entrada.csv
+        EstoqueCentroCSVImporter.importarCSV(csvFilePath);
+        System.out.println("Estoque dos centros atualizado com sucesso!");
+    }
+
 }
+
 

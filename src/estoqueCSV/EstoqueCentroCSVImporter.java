@@ -44,7 +44,7 @@ public class EstoqueCentroCSVImporter {
     }
 
     public static void importarCSV(String csvFilePath) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         try (CSVReader csvReader = new CSVReader(new FileReader(csvFilePath));
              Connection conexao = Conexoes.conexao()) {
 
